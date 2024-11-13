@@ -1,5 +1,8 @@
 // Подключение к WebSocket-серверу
-const chatSocket = new WebSocket('ws://localhost:8000/ws/chat/room_name/');
+const roomName = "{{ room_name }}";
+const chatSocket = new WebSocket(
+    'ws://' + window.location.host + '/ws/chat/' + roomName + '/'
+);
 
 
 // Обработчик открытия соединения
@@ -18,7 +21,6 @@ chatSocket.onmessage = function(event) {
     messageElement.textContent = `${messageData.username || "Anonymous"}: ${messageData.message}`;
     messageContainer.appendChild(messageElement);
 };
-
 
 // Обработчик закрытия соединения
 chatSocket.onclose = function(event) {
